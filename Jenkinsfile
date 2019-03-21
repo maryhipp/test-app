@@ -1,21 +1,5 @@
 pipeline {
   agent any
-  triggers {
-    GenericTrigger(
-     genericHeaderVariables: [
-      [key: 'X-GitHub-Event']
-     ],
-     
-     causeString: 'Triggered by $x_github_event',
-     
-     token: '8jcLaiEmcF',
-     
-     printContributedVariables: true,
-     printPostContent: true,
-     
-     silentResponse: false
-    )
-  }
   stages {
     stage('Set pending') {
       when {
@@ -24,7 +8,12 @@ pipeline {
         }
       }
       steps {
-        setBuildStatus("tests have not yet run with these changes", "pending")
+        setBuildStatus("tests have not yet run with these changes", "PENDING")
+      }
+    }
+    stage('Set fail') {
+      steps {
+        setBuildStatus("tests have not yet run with these changes", "FAILURE")
       }
     }
   }
