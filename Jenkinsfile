@@ -4,7 +4,7 @@ pipeline {
     stage('Set pending') {
       when {
         expression {
-          return params.x_github_event === "push"
+          return params.x_github_event == "push"
         }
       }
       steps {
